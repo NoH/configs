@@ -6,10 +6,12 @@
 (add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
 (add-hook 'lisp-mode-hook             (lambda () (paredit-mode +1)))
 (add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'haskell-mode-hook          (lambda () (paredit-mode +1)))
 ;; Fontify current frame
 (fontify-frame nil)
 ;; Fontify any future frames
 (push 'fontify-frame after-make-frame-functions)
+
 (setq verilog-linter "iverilog -o ")
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
@@ -17,6 +19,7 @@
 (setq make-backup-files nil) ; stop creating those backup~ files
 (setq auto-save-default nil) ; stop creating those #autosave# files
 (setq inhibit-startup-message t)
+(setq ring-bell-function 'scroll-lock-blink)
 (global-font-lock-mode 1)
 (setq font-lock-maximum-decoration t)
 (autoload 'verilog-mode "verilog-mode" "Verilog mode" t )
@@ -37,6 +40,10 @@
      (slime-setup)
 (require 'color-theme);; Define a -hook for all modes where we want tab completion.
 (add-hook 'c-mode-common-hook
+          (function (lambda ()
+                    (local-set-key (kbd "") 'indent-or-complete)
+                     )))
+(add-hook 'c-mode-hook
           (function (lambda ()
                     (local-set-key (kbd "") 'indent-or-complete)
                      )))
@@ -71,6 +78,7 @@
 
 (color-theme-initialize)
 (load-file "~/.emacs.d/themes/color-theme-blackboard.el")
+;; Can be found at http://jdhuntington.com/paste/color-theme-blackboard.el.html
 (color-theme-blackboard)
 
 ;;No more typing yes or no, y or n is sufficent from now on
@@ -107,10 +115,10 @@
 (setq rcirc-default-user-name "Nibble")
 (setq rcirc-default-full-name "Nibble")
 
-;; Join these channels at startup. Not working atm?
+;; Join these channels at startup.
 (setq rcirc-startup-channels-alist
-      '(("\\.freenode\\.net$" "#channel" "#channel2")
-	("\\.ninthbit\\.net$" "#channel" "#channel2")))
+      '(("\\.freenode\\.net$" "#emacs" "#haskell" "#xcb")
+	("\\.ninthbit\\.net$" "#offtopic" "#programming")))
 
 ;; Connect to servers.
 (defun my-rcirc-connect()
@@ -118,14 +126,11 @@
   (rcirc "irc.freenode.net")
   (rcirc-connect "irc.ninthbit.net"))
 
-(setq rcirc-authinfo '(("freenode" nickserv "user" "pass")
-		       ("ninthbit" nickserv "user" "pass")))
-
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
 
 (add-hook 'message-mode-hook 'turn-on-flyspell)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
-(add-hook 'c-mode-common-hook 'flyspell-prog-mode)
+(add-hook 'c-mode-hook 'flyspell-prog-mode)
 (add-hook 'tcl-mode-hook 'flyspell-prog-mode)
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 
@@ -143,5 +148,16 @@
 (load "~/.emacs.d/haskell-mode/haskell-site-file.el")
 
 (setq haskell-program-name "/usr/bin/ghci")
+(setq haskell-doc-show-global-types 1)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook (lambda () (haskell-doc-show-global-types 1)))
+(setq c-mode-hook
+    (function (lambda ()
+                (setq c-indent-level 4))))
+(setq flymake-allowed-file-name-masks
+           (cons '(".+\\.c$"
+                   flymake-simple-make-init
+                   flymake-simple-cleanup
+                   flymake-get-real-file-name)
+                 flymake-allowed-file-name-masks))
