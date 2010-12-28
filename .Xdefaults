@@ -1,32 +1,88 @@
-!------------------!
-!   URvxt Stuff    !
-!------------------!
-URxvt.scrollKey: true
-URxvt.scrollWithBuffer: true
-URxvt.urgentOnBell: true
-URxvt.skipScroll: true
-URxvt.trippleclickwords: true
+! xpdf -----------------------------------------------------------------------
 
-!--[trans and fg/bg]--!
-URxvt*fadeColor: black
-URxvt*transparent: false
-URxvt*shading: 80
-URxvt*depth:24
-URxvt*borderless: 1
+xpdf*enableFreetype: yes
+xpdf*antialias: yes
+xpdf*foreground: black
+xpdf*background: white
+xpdf*urlCommand: /usr/bin/chromium %s
 
-!--[font]--! 
-URxvt*font: xft:Profont:size=10
-!--[scrolling]--! 
+! Xft settings ---------------------------------------------------------------
+
+Xft.dpi: 96
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight
+
+! xterm ----------------------------------------------------------------------
+
+xterm*geometry: 80x25
+xterm*faceName: xft:Dejavu Sans Mono:pixelsize=14:antialias=true
+xterm*dynamicColors: true
+xterm*utf8: 2
+xterm*eightBitInput: true
+xterm*saveLines: 512
+xterm*scrollTtyKeypress: true
+xterm*scrollTtyOutput: false
+xterm*scrollBar: true
+xterm*rightScrollBar: true
+xterm*loginShell: true
+xterm*jumpScroll: true
+xterm*multiScroll: true
+xterm*toolBar: false
+xterm*background: #242424
+xterm*foreground: #ffffff
+
+
+!------------------------------------------------------------------------------
+! c o l o r - s e t t i n g s
+
+
+
+
+*foreground: #DDEEDD
+*background: #1C1C1C
+
+!black
+*color0: #1C1C1C
+*color8: #4d4d4d
+!red
+*color1: #D81860
+*color9: #F00060
+!green
+*color2: #B7CE42
+*color10: #BDE077
+!yellow
+*color3: #FEA63C
+*color11: #FFE863
+!blue
+*color4: #66AABB
+*color12: #AACCBB
+!magenta
+*color5: #B7416E
+*color13: #BB4466
+!cyan
+*color6: #5E7175
+*color14: #A3BABF
+!white
+*color7: #DDEEDD
+*color15: #6C887A
+
+
+
+!------------------------------------------------------------------------------
+! u r x v t
+
+URxvt*depth: 32
+URxvt*geometry: 112x22
+URxvt*font: xft:profont:antialias=true:pixelsize=13
+URxvt*boldFont: xft:profont:pixelsize=13
 URxvt*scrollBar: false
-URxvt*saveLines: 10000
-URxvt*background: black
-URxvt*foreground: #F8F8F8
-!--[perl]--! 
-URxvt*perl-ext-common: default, matcher
-URxvt*urlLauncher: firefox
-!--[bell]--!
-URxvt*urgentOnBell: true
-
-!--[cursor]--!
-URxvt*cursorBlink: false
-
+URxvt*scrollBar_right: true
+URxvt*scrollColor: #000000
+URxvt.perl-ext-common: default,matcher
+URxvt.urlLauncher: chromium
+URxvt.matcher.button: 1
+URxvt*matcher.pattern.1: \\b(mailto|http|https|ftp|file):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+URxvt*matcher.pattern.2: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+URxvt*background: rgba:0000/0000/0000/bbbb
